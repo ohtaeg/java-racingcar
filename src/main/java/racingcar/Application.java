@@ -1,8 +1,7 @@
 package racingcar;
 
 import racingcar.controller.RacingGame;
-import racingcar.domain.Round;
-import racingcar.domain.Winner;
+import racingcar.domain.*;
 import racingcar.view.InputView;
 import racingcar.view.OutputView;
 
@@ -23,7 +22,7 @@ public class Application {
             outputView.view(racingGame.getCars().toList());
         }
 
-        Winner winners = new Winner(racingGame.getCars());
-        outputView.print(winners.getWinner());
+        Cars winners = Winners.findWinner(racingGame.getCars().toList());
+        outputView.print(winners.award());
     }
 }
