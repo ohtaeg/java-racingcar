@@ -34,7 +34,7 @@ public class RacingGame {
         String[] names = carNames.split(CAR_NAME_SEPARATOR);
         List<Car> cars = new ArrayList<>();
         for (String name : names) {
-            cars.add(new Car(new CarName(name), new Distance()));
+            cars.add(new Car(new CarName(name)));
         }
         return new Cars(cars);
     }
