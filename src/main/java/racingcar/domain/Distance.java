@@ -23,6 +23,10 @@ public class Distance {
         return value;
     }
 
+    public int compare(final Distance other) {
+        return Integer.compare(this.value, other.value);
+    }
+
     @Override
     public boolean equals(final Object o) {
         if (this == o) return true;

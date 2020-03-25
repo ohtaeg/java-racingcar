@@ -31,6 +31,6 @@ public final class Car implements Comparable<Car> {
 
     @Override
     public int compareTo(final Car car) {
-        return distance.toInt() - car.distance.toInt();
+        return distance.compare(car.distance);
     }
 }
