@@ -23,6 +23,10 @@ public class Distance {
         return value;
     }
 
+    public boolean match(final Distance distance) {
+        return this.equals(distance);
+    }
+
     public int compare(final Distance other) {
         return Integer.compare(this.value, other.value);
     }
