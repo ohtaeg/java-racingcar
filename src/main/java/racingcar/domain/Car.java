@@ -2,6 +2,7 @@ package racingcar.domain;
 
 import racingcar.policy.MovingPolicy;
 
+import java.util.List;
 import java.util.Objects;
 
 public final class Car implements Comparable<Car> {
@@ -33,6 +34,17 @@ public final class Car implements Comparable<Car> {
 
     public boolean match(final Car other) {
         return distance.equals(other.distance);
+    }
+
+    void addOtherWinners(List<Car> winners) {
+        Car firstWinner = winners.get(0);
+        if (isWinner(firstWinner)) {
+            winners.add(this);
+        }
+    }
+
+    private boolean isWinner(final Car firstWinner) {
+        return distance.match(firstWinner.distance);
     }
 
     @Override
