@@ -5,6 +5,8 @@ import racingcar.domain.*;
 import racingcar.view.InputView;
 import racingcar.view.OutputView;
 
+import java.util.List;
+
 public class Application {
     public static void main(String[] args) {
         InputView inputView = new InputView();
@@ -22,7 +24,8 @@ public class Application {
             outputView.view(racingGame.getCars().toList());
         }
 
-        Cars winners = Winners.findWinner(racingGame.getCars().toList());
-        outputView.print(winners.award());
+        List<Car> winners = racingGame.getCars()
+                                      .findWinners();
+        outputView.award(winners);
     }
 }
