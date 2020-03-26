@@ -2,14 +2,12 @@ package racingcar.domain;
 
 import racingcar.policy.MovingPolicy;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.PriorityQueue;
 
 public final class Cars {
-    private static final String WIN_MESSAGE = "가 최종 우승했습니다.";
-    private static final String WINNER_JOIN_EXPRESSION = ", ";
-
     private final List<Car> cars;
 
     public Cars(final List<Car> cars) {
@@ -26,12 +24,28 @@ public final class Cars {
         return Collections.unmodifiableList(cars);
     }
 
-    public String award() {
-        String award = cars.stream()
-                           .map(Car::getName)
-                           .map(CarName::toString)
-                           .collect(Collectors.joining(WINNER_JOIN_EXPRESSION))
-        ;
-        return award + WIN_MESSAGE;
+    public List<Car> findWinners() {
+        return filterWinner(rank(cars));
+    }
+
+    private PriorityQueue<Car> rank(final List<Car> cars) {
+        PriorityQueue<Car> ranks = new PriorityQueue<>(Collections.reverseOrder());
+        for (Car car : cars) {
+            ranks.offer(car);
+        }
+        return ranks;
+    }
+
+    private List<Car> filterWinner(final PriorityQueue<Car> rankedCars) {
+        List<Car> winners = new ArrayList<>();
+        Car firstWinner = rankedCars.poll();
+        winners.add(firstWinner);
+
+        Car car;
+        while (!rankedCars.isEmpty()) {
+            car = rankedCars.poll();
+            car.addOtherWinners(winners);
+        }
+        return winners;
     }
 }
